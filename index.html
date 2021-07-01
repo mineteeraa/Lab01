@@ -14,26 +14,54 @@
     <div id="app">
         <div class="nav-bar"></div>
 
+        <div class="cart">Cart({{ cart }})</div>
+
         <div class="product-display">
             <div class="product-container">
                 <div class="product-image">
                     <img :src="image" />
                 </div>
                 <div class="product-info">
-                    <a v-bind:href="product_link">{{ product }}</a>
+                    <h1>
+                        <a v-bind:href="product_link" style="text-decoration:none; color:#5e8ba8">
+                            {{ product }}
+                        </a>
+                    </h1>
+                    <p>{{product_description}}</p>
+                    <p>Inventory: {{inventory}}</p>
 
-                    <p v-if="inventory > 10">In Stock</p>
-                    <p v-else-if="inventory <= 10 && inventory > 0">In Stock</p>
-                    <p v-else>Out of Stock</p>
+                    <p v-if="inventory > 10" style="color:#5ec245">
+                        In Stock
+                    </p>
+                    <p v-else-if="inventory <= 10 && inventory > 0" style="color:#5ec245">
+                        In Stock
+                    </p>
+                    <p v-else style="color:#bd2626">
+                        Out of Stock
+                    </p>
 
-                    <p v-if="onSale">On Sale!</p>
-                    <p v-else>Not Sale</p>
+                    <p v-if="onSale" style="color:#418f2d">On Sale!</p>
+                    <p v-else style="color:#8f2d2d">Not Sale</p>
 
                     <ul>
                         <li v-for="detail in details">{{ detail }}</li>
                     </ul>
-                    <div v-for="variant in variants" :key="variant.id">{{ variant.color }}</div>
-                    <span v-for="variant in variants" :key="variant.id">{{ variant.size }}</span>
+                    <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)">
+                        <p>{{ variant.color }}</p>
+                    </div>
+                    <p>
+                        <span v-for="variant in variants" :key="variant.id">
+                            {{ variant.size }}
+                        </span>
+                    </p>
+
+                    <button class="button" @click="addToCart" style="background-color:#5c9b33; border: none;">
+                        Add to Cart
+                    </button>
+                    <button class="button" @click="removeFromCart"
+                        style="background-color:#bd2626; font-size:14px; border: none;">
+                        Remove from Cart
+                    </button>
                 </div>
             </div>
         </div>
