@@ -21,13 +21,19 @@
                 </div>
                 <div class="product-info">
                     <a v-bind:href="product_link">{{ product }}</a>
-                    
+
                     <p v-if="inventory > 10">In Stock</p>
                     <p v-else-if="inventory <= 10 && inventory > 0">In Stock</p>
                     <p v-else>Out of Stock</p>
 
                     <p v-if="onSale">On Sale!</p>
                     <p v-else>Not Sale</p>
+
+                    <ul>
+                        <li v-for="detail in details">{{ detail }}</li>
+                    </ul>
+                    <div v-for="variant in variants" :key="variant.id">{{ variant.color }}</div>
+                    <span v-for="variant in variants" :key="variant.id">{{ variant.size }}</span>
                 </div>
             </div>
         </div>
